@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
 #     local apps :
-    'cartable.apps.CartableConfig'
+    'cartable.apps.CartableConfig',
+    'core.apps.CoreConfig'
 ]
 
 MIDDLEWARE = [
