@@ -13,14 +13,17 @@ class Position(models.Model):
     parent = models.ForeignKey('self' , on_delete=models.CASCADE , blank=True , null=True)
 
     def __str__(self):
-        return self.name
+        parent_name = ""
+        if not self.parent == None:
+            parent_name = " > " + self.parent.name
+        return f'{self.name} ( {self.parent} )'
 
 class Employee(models.Model):
     user = models.OneToOneField(User , on_delete=models.CASCADE , related_name="employee")
     department = models.CharField(max_length=150)
     national_id = models.CharField(max_length=10)
-    birth_date = models.DateField(blank=True)
-    phone_number = models.CharField(max_length=11)
+    birth_date = models.DateField(blank=True , null=True)
+    phone_number = models.CharField(max_length=11 )
     position = models.ForeignKey(Position , models.CASCADE , related_name="employees")
     permission = models.ManyToManyField(Permision,related_name="employees")
 
