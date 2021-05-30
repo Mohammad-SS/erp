@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-5wn5bx9nm##3f#ga_rj4)tj!%+inly)ady4a-21vaxapwu+ywz
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -37,6 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+#     local apps :
+    'cartable.apps.CartableConfig'
 ]
 
 MIDDLEWARE = [
@@ -76,8 +79,12 @@ WSGI_APPLICATION = 'erp.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': "erp",
+        "USER" : "erper",
+        "PASSWORD" : "lvl/-\Z!m1",
+        "HOST" : "localhost",
+        "PORT" : "5432"
     }
 }
 
