@@ -3,21 +3,97 @@
 {% block content %}
 
     <div class="row">
-    <div class="col-lg-6 dashboard-section" >
-        <div class="row">
-            <div class="col-lg-4">
-                <img src="{% static 'img/mail.png' %}" alt="">
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-6 dashboard-section" >
+        {% for permission in employee.permission.all %}
+            {% if permission.code == 30 %}
+                <div class="col-lg-6 dashboard-section">
+                    <a href="{% url 'mails' %}">
 
-    </div>
-    <div class="col-lg-6 dashboard-section" >
+                        <div class="row align-items-center h-100 m-0">
+                            <div class="col-lg-9 text-right" style="color:#664b17 ">
+                                <h4>صندوق ورودی نامه ها</h4>
+                                <h5>12 ایمیل جدید</h5>
+                                <p style="font-size: 11px">از این بخش میتوانید ایمیل هایی که از خارج سامانه برای شماره
+                                    ارسال شده
+                                    را بررسی کنید یا ایمیل
+                                    جدیدی به خارج از سامانه ارسال کنید.</p>
 
-    </div>
-    <div class="col-lg-6 dashboard-section" >
+                            </div>
+                            <div class="col-lg-3 text-center">
+                                <img src="{% static 'img/mail.png' %}" alt="" style="max-height: 100px">
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            {% endif %}
+            {% if permission.code == 30 %}
 
-    </div>
+                <div class="col-lg-6 dashboard-section">
+                    <a href="{% url 'cartable' %}">
+
+                        <div class="row align-items-center h-100 m-0">
+                            <div class="col-lg-9 text-right" style="color:#664b17 ">
+                                <h4>کارتابل نامه های درون سازمانی</h4>
+                                <h5>3 نامه جدید</h5>
+                                <p style="font-size: 11px">
+                                    از این بخش میتوانید برای هر کدام از اعضای سازمان نامه با موضوع مشخص ارسال نمایید ،
+                                    نامه های دریافت شده خود و گردش کار آن ها را مشاهده کنید.
+                                </p>
+
+                            </div>
+                            <div class="col-lg-3 text-center">
+                                <img src="{% static 'img/cartable.png' %}" alt="" style="max-height: 130px">
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            {% endif %}
+            {% if permission.code == 20 %}
+
+                <div class="col-lg-6 dashboard-section">
+                    <a href="{% url 'forms' %}">
+
+                        <div class="row align-items-center h-100 m-0">
+                            <div class="col-lg-9 text-right" style="color:#664b17 ">
+                                <h4>فرم ها</h4>
+                                <p style="font-size: 11px">
+                                    با استفاده از این بخش میتوانید از فرم های موجود استفاده کنید .
+                                </p>
+
+                            </div>
+                            <div class="col-lg-3 text-center">
+                                <img src="{% static 'img/form.png' %}" alt="" style="max-height: 130px">
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            {% endif %}
+
+            {% if permission.code == 40 %}
+
+                <div class="col-lg-6 dashboard-section">
+                    <a href="{% url 'belongings' %}">
+
+                        <div class="row align-items-center h-100 m-0">
+                            <div class="col-lg-9 text-right" style="color:#664b17 ">
+                                <h4>سامانه اموال</h4>
+                                <h5>50 وسیله تحویل شما میباشد</h5>
+                                <p style="font-size: 11px">
+                                در این بخش میتوانید اموال تحویلی خود را مشاهده کنید .
+                                </p>
+
+                            </div>
+                            <div class="col-lg-3 text-center">
+                                <img src="{% static 'img/belongings.png' %}" alt="" style="max-height: 140px">
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            {% endif %}
+
+
+        {% endfor %}
+
+
+
     </div>
 {% endblock %}

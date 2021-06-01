@@ -6,6 +6,7 @@
 
 html,
 body {
+    direction: rtl;
     height: 100%;
     font-family: "Persian";
 }
@@ -38,13 +39,12 @@ a:hover{
 }
 
 .context-menu {
+    z-index: 10000;
     border:1px solid black ;
     height: 0px;
     width: auto;
     background-color: #e8f0fe;
     position: absolute;
-    right: 100px;
-    top: 80px;
     transition: height 1s ease-in;
     display: none;
 }
@@ -60,7 +60,12 @@ a:hover{
 }
 
 .dashboard-section{
-    min-height: 300px;
+    min-height: 250px;
     border-radius: 15px;
     border: 1px #e8f0fe solid;
+    transition: 0.3s background-color linear;
+}
+
+.dashboard-section:hover{
+    background-color: rgba(216, 216, 216 , 0.4);
 }

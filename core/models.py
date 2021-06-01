@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 
 class Permision(models.Model):
     name = models.CharField(max_length=100)
-
+    code = models.IntegerField(unique=True)
     def __str__(self):
         return self.name
 

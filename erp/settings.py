@@ -68,6 +68,10 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+            #     local processors :
+                'core.global_variables.dateandtime',
+                'core.global_variables.employees',
+
             ],
         },
     },
