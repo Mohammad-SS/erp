@@ -11,12 +11,12 @@ body {
     font-family: "Persian";
 }
 
-a{
+a {
     text-decoration: none;
     color: #993300;
 }
 
-a:hover{
+a:hover {
     text-decoration: none;
 }
 
@@ -40,7 +40,7 @@ a:hover{
 
 .context-menu {
     z-index: 10000;
-    border:1px solid black ;
+    border: 1px solid black;
     height: 0px;
     width: auto;
     background-color: #e8f0fe;
@@ -55,17 +55,24 @@ a:hover{
 
 }
 
-.context-item{
-    margin:10px;
+.context-item {
+    margin: 10px;
 }
 
-.dashboard-section{
+.dashboard-section {
     min-height: 250px;
     border-radius: 15px;
     border: 1px #e8f0fe solid;
     transition: 0.3s background-color linear;
 }
 
-.dashboard-section:hover{
-    background-color: rgba(216, 216, 216 , 0.4);
+.dashboard-section:hover {
+    background-color: rgba(216, 216, 216, 0.4);
+}
+
+.cartable-table-body tr td {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    vertical-align: middle;
 }

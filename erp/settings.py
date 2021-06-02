@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-5wn5bx9nm##3f#ga_rj4)tj!%+inly)ady4a-21vaxapwu+ywz
 DEBUG = True
 
 ALLOWED_HOSTS = ["http://mazimi.ir", "mazimi.ir",
-                 "http://5.253.25.22/", "5.253.25.22"]
+                 "http://5.253.25.22/", "5.253.25.22" , "127.0.0.1"]
 
 
 # Application definition

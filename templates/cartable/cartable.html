@@ -1,39 +1,67 @@
 {% extends "core/dashboard/base.html" %}
 
+{% load static %}
 
 {% block content %}
     <div class="row ">
         <div class="col-lg-12">
-            <table class="table table-hover">
+            <table class="table table-hover table-bordered" style="table-layout: fixed">
                 <thead class="text-right">
-                <th scope="col">شماره نامه</th>
-                <th scope="col">از طرف</th>
-                <th scope="col">موضوع نامه</th>
-                <th scope="col">خلاصه نامه</th>
-                <th scope="col">تاریخ نامه</th>
-                <th scope="col">وضعیت نامه</th>
-                </thead>
-                <tbody class="text-right">
                 <tr>
-                    <td scope="col" style="white-space: nowrap;overflow:hidden; width: 1%; table-layout: fixed">
+
+                    <th scope="col" style="width: 10%">شماره نامه</th>
+                    <th scope="col" style="width: 10%">از طرف</th>
+                    <th scope="col" style="width: 25%">موضوع نامه</th>
+                    <th scope="col" style="width: 35%">خلاصه نامه</th>
+                    <th scope="col" style="width: 10%">تاریخ نامه</th>
+                    <th scope="col" style="width: 10%">وضعیت نامه</th>
+                </tr>
+
+                </thead>
+                <tbody class="text-right cartable-table-body" >
+                <tr class="bg-warning">
+                    <td scope="col">
                         100214
                     </td>
                     <td scope="col">
                         وحید احمدی
                     </td>
-                    <td scope="col" style="white-space: nowrap;overflow:hidden; max-width: 100px; table-layout: fixed">
+                    <td scope="col">
                         درخواست SSL برای دامنه
                         اسرا.آی آر
                     </td>
-                    <td scope="col" style="white-space: nowrap;overflow:hidden; max-width: 100px ; table-layout: fixed">
+                    <td scope="col">
                         بدین وسیله درخواست
                         میکنیم که یک اس اس ال برای دامنه اسرا دات آی ار بخرید ، وصلش کنید و سعی کنید کمتر هک بشیم
                     </td>
-                    <td scope="col" style="white-space: nowrap;overflow:hidden; max-width: 20px; table-layout: fixed">
+                    <td scope="col">
                         1400/03/11
                     </td>
-                    <td scope="col" style="white-space: nowrap;overflow:hidden; max-width: 10px; table-layout: fixed">
-                        وضعیت نامه
+                    <td scope="col" class="text-center">
+                        <img src="{% static '/img/mail-new.png' %}" style="max-width: 30px">
+                    </td>
+                    </th>
+                </tr>
+                <tr>
+                    <td scope="col">
+                        100214
+                    </td>
+                    <td scope="col">
+                        وحید احمدی
+                    </td>
+                    <td scope="col">
+                        درخواست SSL برای دامنه
+                        اسرا.آی آر
+                    </td>
+                    <td scope="col">
+                        بدین وسیله درخواست
+                        میکنیم که یک اس اس ال برای دامنه اسرا دات آی ار بخرید ، وصلش کنید و سعی کنید کمتر هک بشیم
+                    </td>
+                    <td scope="col">
+                        1400/03/11
+                    </td>
+                    <td scope="col" class="text-center">
+                        <img src="{% static '/img/mail-read.png' %}" style="max-width: 30px">
                     </td>
                     </th>
                 </tr>
