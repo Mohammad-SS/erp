@@ -13,7 +13,7 @@ def dateandtime(request):
 
 def employees(request):
     if request.user.is_authenticated:
-        employee = Employee.objects.get(user=request.user)
-        return {"employee": employee}
-    else:
-        return {}
+        employee = Employee.objects.filter(user=request.user)
+        if employee:
+            return {"employee": employee[0]}
+    return {}

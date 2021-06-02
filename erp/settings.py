@@ -25,7 +25,8 @@ SECRET_KEY = 'django-insecure-5wn5bx9nm##3f#ga_rj4)tj!%+inly)ady4a-21vaxapwu+ywz
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = ["http://mazimi.ir", "mazimi.ir",
+                 "http://5.253.25.22/", "5.253.25.22"]
 
 
 # Application definition
@@ -38,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-#     local apps :
+    #     local apps :
     'cartable.apps.CartableConfig',
     'core.apps.CoreConfig',
 
@@ -59,8 +60,7 @@ ROOT_URLCONF = 'erp.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')]
-        ,
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -68,7 +68,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-            #     local processors :
+                #     local processors :
                 'core.global_variables.dateandtime',
                 'core.global_variables.employees',
 
@@ -87,10 +87,10 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': "erp",
-        "USER" : "erper",
-        "PASSWORD" : "lvl/-\Z!m1",
-        "HOST" : "localhost",
-        "PORT" : "5432"
+        "USER": "erper",
+        "PASSWORD": "lvl/-\Z!m1",
+        "HOST": "localhost",
+        "PORT": "5432"
     }
 }
 
