@@ -1,0 +1,53 @@
+{% extends "core/dashboard/base.html" %}
+
+{% load static %}
+
+{% block content %}
+    <form method="post" action="{% url 'cartable_detail' %}">
+        <div class="row text-right mt-4">
+            <div class="col col-lg-2 mt-1">
+                <label>موضوع نامه : </label>
+            </div>
+            <div class="col col-lg-6">
+                <input name="title" type="text" class="form-control" placeholder="">
+            </div>
+            <div class="col col-lg-4 mt-1">
+                <small>حداکثر میتواند 400 حرف باشد .</small>
+            </div>
+        </div>
+        <div class="row text-right mt-4">
+            <div class="col col-lg-2 mt-1">
+                <label>خلاصه نامه : </label>
+            </div>
+            <div class="col col-lg-10">
+                <textarea name="summary" class="form-control" style="max-height: 50px"></textarea>
+            </div>
+        </div>
+        <div class="row text-right mt-4">
+            <div class="col col-lg-2 mt-1">
+                <label>متن نامه : </label>
+            </div>
+            <div class="col col-lg-10">
+                <textarea name="body" class="form-control" style="min-height: 400px"></textarea>
+            </div>
+        </div>
+    <div class="row text-right mt-4">
+            <div class="col col-lg-2 mt-1">
+                <label>قالب نامه : </label>
+            </div>
+            <div class="col col-lg-4">
+                <select name="template" class="form-control">
+                    {% for template in templates %}
+                        <option value="{{ template.id }}">{{ template.name }}</option>
+                    {% endfor %}
+                </select>
+
+            </div>
+            <div class="col col-lg-6">
+                <button class="btn btn-primary w-25">مرحله بعد</button>
+
+            </div>
+        </div>
+    {% csrf_token %}
+    </form>
+{% endblock %}

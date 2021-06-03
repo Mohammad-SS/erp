@@ -3,6 +3,23 @@
 {% load static %}
 
 {% block content %}
+    <div class="row text-center m-3">
+        <div class="col-lg-4">
+            <button class="btn btn-success w-50">
+                صندوق ورودی
+            </button>
+        </div>
+        <div class="col-lg-4">
+            <button class="btn btn-primary">
+                صندوق خروجی
+            </button>
+        </div>
+        <div class="col-lg-4">
+            <button class="btn btn-secondary">
+                پیش نویس ها
+            </button>
+        </div>
+    </div>
     <div class="row ">
         <div class="col-lg-12">
             <table class="table table-hover table-bordered" style="table-layout: fixed">
@@ -11,62 +28,67 @@
 
                     <th scope="col" style="width: 10%">شماره نامه</th>
                     <th scope="col" style="width: 10%">از طرف</th>
-                    <th scope="col" style="width: 25%">موضوع نامه</th>
+                    <th scope="col" style="width: 20%">موضوع نامه</th>
                     <th scope="col" style="width: 35%">خلاصه نامه</th>
-                    <th scope="col" style="width: 10%">تاریخ نامه</th>
+                    <th scope="col" style="width: 15%">تاریخ نامه</th>
                     <th scope="col" style="width: 10%">وضعیت نامه</th>
                 </tr>
 
                 </thead>
-                <tbody class="text-right cartable-table-body" >
-                <tr class="bg-warning">
-                    <td scope="col">
-                        100214
-                    </td>
-                    <td scope="col">
-                        وحید احمدی
-                    </td>
-                    <td scope="col">
-                        درخواست SSL برای دامنه
-                        اسرا.آی آر
-                    </td>
-                    <td scope="col">
-                        بدین وسیله درخواست
-                        میکنیم که یک اس اس ال برای دامنه اسرا دات آی ار بخرید ، وصلش کنید و سعی کنید کمتر هک بشیم
-                    </td>
-                    <td scope="col">
-                        1400/03/11
-                    </td>
-                    <td scope="col" class="text-center">
-                        <img src="{% static '/img/mail-new.png' %}" style="max-width: 30px">
-                    </td>
-                    </th>
-                </tr>
-                <tr>
-                    <td scope="col">
-                        100214
-                    </td>
-                    <td scope="col">
-                        وحید احمدی
-                    </td>
-                    <td scope="col">
-                        درخواست SSL برای دامنه
-                        اسرا.آی آر
-                    </td>
-                    <td scope="col">
-                        بدین وسیله درخواست
-                        میکنیم که یک اس اس ال برای دامنه اسرا دات آی ار بخرید ، وصلش کنید و سعی کنید کمتر هک بشیم
-                    </td>
-                    <td scope="col">
-                        1400/03/11
-                    </td>
-                    <td scope="col" class="text-center">
-                        <img src="{% static '/img/mail-read.png' %}" style="max-width: 30px">
-                    </td>
-                    </th>
-                </tr>
+                <tbody class="text-right cartable-table-body">
+                {% for reference in letters %}
+                    <tr class="{% if not reference.read %}
+                    bg-warning
+                    {% endif %} ">
+                        <td scope="col">
+                            {{ reference.letter.tracking_id }}
+                        </td>
+                        <td scope="col">
+                            {{ reference.sender.user.first_name }} {{ reference.sender.user.last_name }}
+
+                        </td>
+                        <td scope="col">
+                            {{ reference.letter.title }}
+                        </td>
+                        <td scope="col">
+                            {{ reference.letter.summary }}
+                        </td>
+                        <td scope="col">
+                            {{ reference.persian_date }}
+                        </td>
+                        <td scope="col" class="text-center">
+                            <img src="
+                            {% if not reference.read %}
+                            {% static '/img/mail-new.png' %}
+                            {% else %}
+                            {% static '/img/mail-read.png' %}
+                            {% endif %}
+" style="max-width: 30px">
+                        </td>
+                        </th>
+                    </tr>
+                {% endfor %}
+
                 </tbody>
             </table>
         </div>
+    </div>
+    <div class="row text-right m-3">
+        <div class="col-lg-6">
+            {% for permission in employee.permission.all %}
+
+                {% if permission.code == 11 %}
+                    <a href="{% url 'cartable_write' %}">
+                    <button class="btn btn-info w-50">
+                        ارسال نامه جدید
+                    </button>
+                    </a>
+                {% endif %}
+
+            {% endfor %}
+
+        </div>
+
+
     </div>
 {% endblock %}

@@ -26,6 +26,8 @@ class Employee(models.Model):
     phone_number = models.CharField(max_length=11 )
     position = models.ForeignKey(Position , models.CASCADE , related_name="employees")
     permission = models.ManyToManyField(Permision,related_name="employees")
-
+    read = models.BooleanField(default=False)
+    read_time = models.DateTimeField(blank=True , null=True)
+    signature = models.FileField(upload_to="signs" , blank=True , null=True , default=None)
     def __str__(self):
         return f'{self.user.username} ( {self.department} ) '

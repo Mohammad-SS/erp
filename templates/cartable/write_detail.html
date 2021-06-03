@@ -1,0 +1,48 @@
+{% extends "core/dashboard/base.html" %}
+
+{% load static %}
+
+{% block content %}
+    {% autoescape off %}
+        <div class="container-fluid">
+            <div class="row mt-4">
+                <div class="col-lg-6 text-right">
+                    <form method="post" action="{% url 'cartable_contacts' %}">
+                        <input type="hidden" name="tracking" value="{{ tracking }}">
+                        <input type="hidden" name="template" value="{{ template.id }}">
+                        <input type="hidden" name="body" value="{{ body }}">
+                                                <input type="hidden" name="title" value="{{ title }}">
+
+                        <input type="hidden" name="summary" value="{{ summary }}">
+
+                        {% csrf_token %}
+                        <button class="btn btn-success w-50">تایید و ادامه</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="container" style="position: relative ; margin-top: 50px;">
+
+        <div class="text-justify"
+             style="position: absolute ; right: {{ template.body_margins.1 }} ; top: {{ template.body_margins.0 }} ; width: {{ template.body_width }} ">
+            {{ body | linebreaks }}
+            <div class="text-right"
+                 style="position: relative ; right: {{ template.sign_margins.1 }} ; top: {{ template.sign_margins.0 }} ">
+                <img src="{{ employee.signature.url }}" style="width: 200px ; height: 100px">
+            </div>
+        </div>
+        <div class="text-right"
+             style="position: absolute ; right: {{ template.date_margins.1 }} ; top: {{ template.date_margins.0 }}   ; direction: rtl ">
+            {{ date }}
+        </div>
+        <div class="text-right"
+             style="position: absolute ; right: {{ template.tracking_margins.1 }}  ; top: {{ template.tracking_margins.0 }}  ; direction: rtl ">
+            {{ tracking }}
+        </div>
+
+        <img src="{{ template.picture.url }}" style="width: 1090px">
+    {% endautoescape %}
+</div>
+
+{% endblock %}

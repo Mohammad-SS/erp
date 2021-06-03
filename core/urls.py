@@ -8,7 +8,7 @@ urlpatterns = [
     # Dashboard Sections
     path('dashboard/profile' , views.Dashboard.as_view() , name='profile'),
     path('dashboard/mails' , views.Mails.as_view() , name='mails'),
-    path('dashboard/cartable', include(cartable_urls), name='cartable'),
+    path('dashboard/cartable/', include(cartable_urls), name='cartable'),
     path('dashboard/forms', views.Forms.as_view(), name='forms'),
     path('dashboard/belongings', views.Belongings.as_view(), name='belongings'),
 
