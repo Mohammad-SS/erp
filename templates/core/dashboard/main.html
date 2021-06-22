@@ -3,6 +3,23 @@
 {% block content %}
 
     <div class="row">
+        <div class="col-lg-6 dashboard-section">
+            <a href="{% url 'contract' %}">
+
+                <div class="row align-items-center h-100 m-0">
+                    <div class="col-lg-9 text-right" style="color:#664b17 ">
+                        <h4>ساعت کاری ، قرارداد و حقوق</h4>
+                        <h5></h5>
+                        <p style="font-size: 11px">
+                            در این بخش میتوانید ساعت کاری خود را مشاهده کنید یا تسک های مربوطه خود را تکمیل کنید .</p>
+
+                    </div>
+                    <div class="col-lg-3 text-center">
+                        <img src="{% static 'img/contract.png' %}" alt="" style="max-height: 130px">
+                    </div>
+                </div>
+            </a>
+        </div>
         {% for permission in employee.permission.all %}
             {% if permission.code == 30 %}
                 <div class="col-lg-6 dashboard-section">
@@ -78,7 +95,7 @@
                                 <h4>سامانه اموال</h4>
                                 <h5>50 وسیله تحویل شما میباشد</h5>
                                 <p style="font-size: 11px">
-                                در این بخش میتوانید اموال تحویلی خود را مشاهده کنید .
+                                    در این بخش میتوانید اموال تحویلی خود را مشاهده کنید .
                                 </p>
 
                             </div>
@@ -92,7 +109,6 @@
 
 
         {% endfor %}
-
 
 
     </div>

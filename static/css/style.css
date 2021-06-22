@@ -76,3 +76,17 @@ a:hover {
     text-overflow: ellipsis;
     vertical-align: middle;
 }
+
+.not-showing {
+    display: none
+}
+
+.showing {
+    display: unset;
+}
+
+@media print {
+    html * {
+        display: none;
+    }
+}

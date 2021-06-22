@@ -1,0 +1,26 @@
+{% extends "core/dashboard/base.html" %}
+
+{% block content %}
+    <form action="{% url 'projector' %}" method="post">
+
+    <div class="row">
+        <div class="col col-lg-2 text-right">
+        </div>
+        <div class="col col-lg-6 text-right">
+            <select name="project" class="custom-select text-right bg-info text-danger" id="projects">
+                <option disabled value> یک پروژه را انتخاب کنید</option>
+                {% for project in projects %}
+                    <option value={{ project.id }}>{{ project.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    {% csrf_token %}
+        <div class="col col-lg-2 text-right">
+            <button type="submit" class="btn btn-primary w-100">نمایش</button>
+        </div>
+        <div class="col col-lg-2 text-right">
+        </div>
+    </div>
+        </form>
+
+{% endblock %}

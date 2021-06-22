@@ -1,0 +1,157 @@
+{% extends "core/dashboard/base.html" %}
+
+{% load static %}
+{% block breadcrumbs %}
+    <a href="{% url 'home' %}">صفحه اصلی</a> > <a href="{% url 'contract' %}">پروژه ها</a>
+{% endblock %}
+{% block content %}
+    {% for task in tasks %}
+
+        <table data-task="{{ task.id }}" class="table table-hover table-striped text-center"
+               style="table-layout: fixed">
+            <thead class="">
+            <tr>
+                <td colspan="6" class="bg-warning">وظیفه شماره {{ forloop.counter }}</td>
+
+            </tr>
+            <tr>
+                <td colspan="1" class="bg-info">موضوع وظیفه :</td>
+                <td colspan="1" class="bg-info">{{ task.title }}</td>
+                <td colspan="1" class="bg-info">تاریخ ایجاد :</td>
+                <td colspan="1" class="bg-info">{{ task.persian_date.created_date }}</td>
+                <td colspan="1" class="bg-info">مهلت :</td>
+                <td colspan="1" class="bg-info">{{ task.persian_date.deadline }}</td>
+
+            </tr>
+            <tr class="bg-dark text-light">
+                <td colspan="2">کارفرما : {{ task.creator.user.first_name }}{{ task.creator.user.last_name }} <br><span
+                        class="text-danger">({{ task.creator.position.name }})</span></td>
+                <td colspan="2"> ساعت پیشبینی شده : <br>{{ task.expected_minutes }} دقیقه ± %{{ task.tolerance }}</td>
+                <td colspan="2">درآمد :<br>{{ task.get_salary }}</td>
+
+            </tr>
+            <tr class="bg-warning">
+                <td colspan="1">
+                    <span>پروسه ها</span>
+                </td>
+                <td colspan="3">
+                    <div class="progress" style="height: 30px">
+                        <div class="progress-bar progress-bar-striped progress-bar-animated
+{% if task.get_percentage > 100 %}
+bg-danger
+{% endif %}
+"
+                             style="width:{{ task.get_percentage }}%;height: 100%">{{ task.get_percentage }}%</div>
+                    </div>
+                </td>
+                <td colspan="2">
+                    {% if not task.active %}
+                        <a href="{% url 'start_task' %}?task={{ task.id }}">
+                            <button class="btn btn-primary w-100">پروسه جدید</button>
+                        </a>
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+
+                <th scope="col" colspan="2" style="width: 10%">تاریخ شروع پروسه</th>
+                <th scope="col" colspan="2" style="width: 10%">آخرین تغییر</th>
+                <th scope="col" style="width: 20%">وضعیت کنونی</th>
+                <th scope="col" style="width: 10%">عملیات</th>
+            </tr>
+
+            </thead>
+            <tbody class="cartable-table-body">
+            {% for record in task.records.all %}
+                <tr class="{% if task.done %}
+                    bg-secondary
+                    {% endif %} ">
+                    <td scope="col" colspan="2">
+                        {{ record.persian_date.start_time }}
+                    </td>
+                    <td scope="col" colspan="2">
+                        {{ record.persian_date.end_time }}
+
+                    </td>
+                    <td scope="col">
+                        {% if record.is_doing %}
+                            <div id="time_elapsed"></div>
+                        {% else %}
+                            پایان یافته با {{ record.record_length.secs }}:{{ record.record_length.mins }} دقیقه
+                        {% endif %}
+                    </td>
+                    <td scope="col">
+                        {% if record.is_doing %}
+                            <a href="{% url 'stop_task' %}?task_record_id={{ record.id }}">
+                                <button class="btn btn-danger">خاتمه</button>
+                            </a>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+            <tr class="bg-dark text-light">
+                <td colspan="1">مجموع ساعات :</td>
+                <td colspan="1">{{ task.sum_hours.mins }}:{{ task.sum_hours.secs }} دقیقه</td>
+                <td colspan="1">وضعیت کنونی :</td>
+                <td colspan="1">
+                    {% if task.done %}
+                        <span class="text-success">
+                        تکمیل شده
+                        </span>
+                    {% else %}
+                        <span class="text-primary">
+                        در حال انجام
+                        </span>
+                    {% endif %}
+                    {% if task.failed %}
+                        <span class="text-danger">
+                        با شکست مواجه شده
+                        </span>
+                    {% endif %}
+                </td>
+                <td colspan="1">درآمد :</td>
+                <td colspan="1">{{ task.sum_income }} تومان</td>
+
+            </tr>
+            </tbody>
+        </table>
+    {% endfor %}
+
+{% endblock %}
+
+{% block extrajs %}
+    <script>
+        $(document).ready(function () {
+            heartbeat(5)
+            setInterval(function () {
+                heartbeat(5)
+            }, 5000)
+        })
+
+        heartbeat = function (time) {
+            values = {
+                user: {{ employee.id }},
+                csrfmiddlewaretoken: '{{ csrf_token }}',
+                time: time,
+            }
+            $.ajax({
+                url: "{% url 'heart_beat' %}",
+                type: "post",
+                data: values,
+                success: function (res) {
+                    if (res.status == 1) {
+                        status = "text-success"
+                    }
+                    if (res.status == 2) {
+                        status = "text-warning"
+                    }
+                    if (res.status == 1) {
+                        status = "text-danger"
+                    }
+                    html = "<label class=" + status + ">" + res.mins + ":" + res.secs + "</label>"
+                    $("#time_elapsed").html(html)
+                }
+            })
+        }
+    </script>
+{% endblock %}

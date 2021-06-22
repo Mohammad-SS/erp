@@ -1,0 +1,43 @@
+{% extends "core/dashboard/base.html" %}
+
+{% block content %}
+    <form action="{% url 'cartable_new_reference' pk=reference.pk %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="hidden" name="letter" value="{{ letter.id }}">
+        <div class="row pt-4 pb-4 bg-warning">
+            <div class="col col-lg-4 text-right">
+                <label> شماره نامه :</label>
+                <span>{{ letter.tracking_id }}</span>
+            </div>
+            <div class="col col-lg-4 text-right">
+                <label> نویسنده :</label>
+                <span>{{ letter.creator.user.first_name }} {{ letter.creator.user.last_name }}</span>
+            </div>
+
+        </div>
+            <div class="row pt-4 pb-4 bg-warning">
+                <div class="col col-lg-3"><label>متن ارجاع</label></div>
+                <div class="col col-lg-9"><textarea name="message" class="form-control w-100" id="" rows="2"></textarea></div>
+            </div>
+        <div class="row pt-4 pb-4 bg-warning">
+            <div class="col col-lg-2 text-right">
+                <label> گیرندگان نامه : </label>
+            </div>
+            <div class="col col-lg-6 text-right">
+                <select name="receivers" class="custom-select" id="receivers" multiple>
+                    <option disabled value> مخاطبین مورد نظر را انتخاب کنید</option>
+
+                    {% for possible_receiver in possible_receivers %}
+                        <option value={{ possible_receiver.id }}>{{ possible_receiver.user.first_name }} {{ possible_receiver.user.last_name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col col-lg-4">
+                <button type="submit" class="btn btn-success w-100">ارسال</button>
+
+            </div>
+
+
+        </div>
+    </form>
+{% endblock %}

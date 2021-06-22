@@ -1,0 +1,41 @@
+{% load static %}
+
+{% block child-loop %}
+    {% with childs=child.childs %}
+        {% for child in childs.all %}
+            <a data-toggle="tooltip" data-placement="right" href="#" {% if child.message %}
+               title="{{ child.message }}"
+            {% endif %}>
+                <li class="pt-1">
+                    ارجاع شده توسط
+                    <span style="color: #ff0000">{{ child.sender.user.first_name }}
+                    {{ child.sender.user.last_name }}
+                ({{ child.sender.position.name }})
+                </span>
+                    به
+                    <span style="color: red">{{ child.to.user.first_name }}
+                    {{ child.to.user.last_name }}
+                                ({{ child.to.position.name }})
+
+                </span>
+                    در تاریخ
+                    {{ child.persian_date }}
+            </a>
+            {% if child.sender == employee %}
+                {% if not child.childs.all.0.read %}
+                    <a href="{% url 'cartable_delete_reference' pk=child.pk %}">
+                        <img src="{% static 'img/delete.png' %}" style="width: 25px">
+                    </a>
+
+                {% endif %}
+
+            {% endif %}
+            <ul>
+                {% include "cartable/child_loop.html" %}
+            </ul>
+            </li>
+        {% endfor %}
+
+    {% endwith %}
+
+{% endblock %}

@@ -1,32 +1,30 @@
 {% extends "core/dashboard/base.html" %}
-
-{% load static %}
 {% block breadcrumbs %}
-    <a href="{% url 'home' %}">صفحه اصلی</a> > <a href="{% url 'cartable_inbox' %}">صندوق ورودی کارتابل</a>
+    <a href="{% url 'home' %}">صفحه اصلی</a> > <a href="{% url 'cartable_drafts' %}">پیش نویس های کارتابل</a>
 {% endblock %}
-
+{% load static %}
 
 {% block content %}
     <div class="row text-center m-3">
         <div class="col-lg-4">
-            <button disabled class="btn btn-success w-50">
-                صندوق ورودی
-            </button>
+            <a href="{% url 'cartable_inbox' %}">
+                <button class="btn btn-success w-50">
+                    صندوق ورودی
+                </button>
+            </a>
         </div>
         <div class="col-lg-4">
             <a href="{% url 'cartable_outbox' %}">
+
                 <button class="btn btn-primary">
                     صندوق خروجی
                 </button>
             </a>
         </div>
         <div class="col-lg-4">
-            <a href="{% url 'cartable_drafts' %}">
-
-                <button class="btn btn-secondary">
-                    پیش نویس ها
-                </button>
-            </a>
+            <button disabled class="btn btn-secondary">
+                پیش نویس ها
+            </button>
         </div>
     </div>
     <div class="row ">
@@ -34,9 +32,7 @@
             <table class="table table-hover table-bordered" style="table-layout: fixed">
                 <thead class="text-right">
                 <tr>
-
                     <th scope="col" style="width: 10%">شماره نامه</th>
-                    <th scope="col" style="width: 10%">از طرف</th>
                     <th scope="col" style="width: 20%">موضوع نامه</th>
                     <th scope="col" style="width: 35%">خلاصه نامه</th>
                     <th scope="col" style="width: 15%">تاریخ نامه</th>
@@ -45,36 +41,26 @@
 
                 </thead>
                 <tbody class="text-right cartable-table-body">
-                {% for reference in letters %}
-                    <tr class="{% if not reference.read %}
-                    bg-warning
-                    {% endif %} ">
+                {% for letter in letters.all %}
+                    <tr class="">
                         <td scope="col">
-                            {{ reference.letter.tracking_id }}
+                            {{ letter.tracking_id }}
                         </td>
-                        <td scope="col">
-                            {{ reference.sender.user.first_name }} {{ reference.sender.user.last_name }}
 
+                        <td scope="col">
+                            {{ letter.title }}
                         </td>
                         <td scope="col">
-                            {{ reference.letter.title }}
+                            {{ letter.summary }}
                         </td>
                         <td scope="col">
-                            {{ reference.letter.summary }}
-                        </td>
-                        <td scope="col">
-                            {{ reference.persian_date }}
+                            {{ letter.persian_date }}
                         </td>
                         <td scope="col" class="text-center">
-                            <a href="{% url 'cartable_simple_read' pk=reference.id %}">
+                            <a href="{% url 'cartable_out_letter' pk=letter.pk %}">
 
-                                <img src="
-                            {% if not reference.read %}
-                            {% static '/img/mail-new.png' %}
-                            {% else %}
-                            {% static '/img/mail-read.png' %}
-                            {% endif %}
-" style="max-width: 30px">
+                                <img src="{% static 'img/forward.png' %}"
+                                     style="max-width: 30px ; transform: rotate(180deg)">
                             </a>
 
                         </td>

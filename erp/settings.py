@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-5wn5bx9nm##3f#ga_rj4)tj!%+inly)ady4a-21vaxapwu+ywz
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["http://mazimi.ir", "mazimi.ir",
+ALLOWED_HOSTS = ["http://mazimi.ir",'localhost', "mazimi.ir", "172.16.13.215" ,
                  "http://5.253.25.22/", "5.253.25.22" , "127.0.0.1"]
 
 
@@ -38,10 +38,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
+    # Third party Apps :
+    'tinymce',
     #     local apps :
     'cartable.apps.CartableConfig',
     'core.apps.CoreConfig',
+    'contracts.apps.ContractsConfig'
 
 ]
 

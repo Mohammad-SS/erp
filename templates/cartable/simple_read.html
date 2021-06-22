@@ -1,0 +1,98 @@
+{% extends "core/dashboard/base.html" %}
+
+{% load static %}
+
+{% block content %}
+    <div class="container-fluid" style="height: 1700px">
+        <div class="row mt-4">
+            <div class="col-lg-3 text-right">
+                <button class="btn btn-primary w-100" id="show-body">متن نامه</button>
+            </div>
+            <div class="col-lg-3 text-right">
+                <button class="btn btn-secondary w-100" id="show-references">ارجاع ها</button>
+            </div>
+
+        </div>
+        <div class="row secs not-showing" id="references-sec">
+            <div class="col-lg-12">
+
+                <ul style="direction: rtl" class="text-right pt-2">
+
+                    {% for child in references.all %}
+                        <a data-toggle="tooltip" data-placement="right" href="#" {% if child.message %}
+                           title="{{ child.message }}"
+                        {% endif %}>
+
+
+                            <li class="pt-4">
+                                ارجاع شده توسط
+                                <span style="color: red">{{ child.sender.user.first_name }}
+                        {{ child.sender.user.last_name }}
+                                    ({{ child.sender.position.name }})
+
+                    </span>
+                                به
+                                <span style="color: red">{{ child.to.user.first_name }}
+                        {{ child.to.user.last_name }}
+                                    ({{ child.to.position.name }})
+
+                    </span>
+                                در تاریخ
+                                {{ child.persian_date }}
+
+                        </a>
+                        {% if child.sender == employee %}
+                            {% if not child.childs.all.0.read %}
+                                <a href="{% url 'cartable_delete_reference' pk=child.pk %}">
+                                    <img src="{% static 'img/delete.png' %}" style="width: 25px">
+                                </a>
+
+                            {% endif %}
+
+                        {% endif %}
+                        <ul>
+                            {% include "cartable/child_loop.html" %}
+                        </ul>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="col col-lg-12">
+                <a href="{% url 'cartable_new_reference' pk=reference.id %}">
+                    <button class="btn btn-warning">ارجاع جدید</button>
+                </a>
+            </div>
+
+        </div>
+        {% autoescape off %}
+
+
+            <div class="row secs not-showing d-print-block" id="body-sec"
+                 style="position: absolute ; margin-top: 100px ; right: 250px">
+                <img src="{{ letter.template.picture.url }}" style="width: 1090px ; position: absolute">
+                <div class="text-right"
+                     style="width:300px ;position: absolute ; right: {{ letter.template.date_margins.1 }} ; top: {{ letter.template.date_margins.0 }}   ; direction: rtl ">
+                    {{ letter.persian_date }}
+                </div>
+                <div class="text-right"
+                     style="width:300px ; position: absolute ; right: {{ letter.template.tracking_margins.1 }}  ; top: {{ letter.template.tracking_margins.0 }}  ; direction: rtl ">
+                    {{ letter.tracking_id }}
+                </div>
+                <div class="text-justify"
+                     style="position: absolute ; right: {{ letter.template.body_margins.1 }} ; top: {{ letter.template.body_margins.0 }} ; width: {{ letter.template.body_width }} ">
+                    {{ letter.body | linebreaks }}
+                    <div class="text-right"
+                         style="position: relative ; right: {{ letter.template.sign_margins.1 }} ; top: {{ letter.template.sign_margins.0 }} ">
+                        <img src="{{ letter.creator.signature.url }}" style="width: 200px ; height: 100px">
+                    </div>
+
+                </div>
+            </div>
+        {% endautoescape %}
+
+    </div>
+
+
+
+{% endblock %}
+

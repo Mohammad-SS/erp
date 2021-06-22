@@ -28,10 +28,10 @@
                 <label>متن نامه : </label>
             </div>
             <div class="col col-lg-10">
-                <textarea name="body" class="form-control" style="min-height: 400px"></textarea>
+                <textarea name="body" class="form-control" id="body-text" style="min-height: 400px"></textarea>
             </div>
         </div>
-    <div class="row text-right mt-4">
+        <div class="row text-right mt-4">
             <div class="col col-lg-2 mt-1">
                 <label>قالب نامه : </label>
             </div>
@@ -48,6 +48,16 @@
 
             </div>
         </div>
-    {% csrf_token %}
+        {% csrf_token %}
     </form>
+
+    <script src="{% static 'tinymce/tinymce.min.js' %}"></script>
+    <script>
+        tinymce.init({
+            selector: '#body-text',
+            plugins: "directionality",
+            directionality: "rtl",
+            language: 'fa_IR'
+        });
+    </script>
 {% endblock %}

@@ -6,6 +6,7 @@
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/select2.min.css' %}">
 
 </head>
 <body style="background-color: #e8f0fe">
@@ -19,13 +20,17 @@
                 ساعت سیستم {{ time }}
             </p>
         </div>
-        <div class="col-lg-5"></div>
+        <div class="col-lg-5 text-center">
+            <a href="{% url 'home' %}">
+            <img src="{% static 'img/logodesk.png' %}" style="width: 200px">
+            </a>
+        </div>
         <div class="col-lg-2">
             <p class="text-center m-1">
                 {{ employee.user.first_name }} {{ employee.user.last_name }}
             </p>
             <p class="text-center m-0" style="font-size: 12px">
-               {{ employee.position.name }}
+                {{ employee.position.name }}
             </p>
         </div>
         <div class="col-lg-1 text-center">
@@ -53,16 +58,34 @@
             </div>
         </div>
     </div>
-        {% block content %}
-            <div class="text-center">
-                You haven't Controll Access
-            </div>
-        {% endblock %}
+    <div class="row">
+        <div class="col col-lg-12 text-right m-4">
+            <p>
+            {% block breadcrumbs %}
+
+
+            {% endblock %}
+
+            </p>
+        </div>
+    </div>
+    {% block content %}
+        <div class="text-center">
+            You haven't Controll Access
+        </div>
+    {% endblock %}
 
 </div>
 
 <script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src="{% static 'js/script.js' %}"></script>
+<script src="{% static 'js/select2.min.js' %}"></script>
+
+{% block extrajs %}
+
+{% endblock %}
 
 </body>
 </html>

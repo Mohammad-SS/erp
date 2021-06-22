@@ -1,32 +1,30 @@
 {% extends "core/dashboard/base.html" %}
-
-{% load static %}
 {% block breadcrumbs %}
-    <a href="{% url 'home' %}">صفحه اصلی</a> > <a href="{% url 'cartable_inbox' %}">صندوق ورودی کارتابل</a>
+    <a href="{% url 'home' %}">صفحه اصلی</a> > <a href="{% url 'cartable_outbox' %}">صندوق خروجی کارتابل</a>
 {% endblock %}
-
+{% load static %}
 
 {% block content %}
     <div class="row text-center m-3">
         <div class="col-lg-4">
-            <button disabled class="btn btn-success w-50">
+            <a href="{% url 'cartable_inbox' %}">
+            <button class="btn btn-success w-50">
                 صندوق ورودی
+            </button>
+            </a>
+        </div>
+        <div class="col-lg-4">
+            <button disabled class="btn btn-primary">
+                صندوق خروجی
             </button>
         </div>
         <div class="col-lg-4">
-            <a href="{% url 'cartable_outbox' %}">
-                <button class="btn btn-primary">
-                    صندوق خروجی
-                </button>
-            </a>
-        </div>
-        <div class="col-lg-4">
-            <a href="{% url 'cartable_drafts' %}">
+                        <a href="{% url 'cartable_drafts' %}">
 
-                <button class="btn btn-secondary">
-                    پیش نویس ها
-                </button>
-            </a>
+            <button class="btn btn-secondary">
+                پیش نویس ها
+            </button>
+                        </a>
         </div>
     </div>
     <div class="row ">
@@ -34,9 +32,8 @@
             <table class="table table-hover table-bordered" style="table-layout: fixed">
                 <thead class="text-right">
                 <tr>
-
                     <th scope="col" style="width: 10%">شماره نامه</th>
-                    <th scope="col" style="width: 10%">از طرف</th>
+                    <th scope="col" style="width: 10%">مخاطب</th>
                     <th scope="col" style="width: 20%">موضوع نامه</th>
                     <th scope="col" style="width: 35%">خلاصه نامه</th>
                     <th scope="col" style="width: 15%">تاریخ نامه</th>
@@ -53,7 +50,7 @@
                             {{ reference.letter.tracking_id }}
                         </td>
                         <td scope="col">
-                            {{ reference.sender.user.first_name }} {{ reference.sender.user.last_name }}
+                            {{ reference.to.user.first_name }} {{ reference.to.user.last_name }}
 
                         </td>
                         <td scope="col">
