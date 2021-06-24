@@ -9,6 +9,9 @@ class Project(models.Model):
     moderators = models.ManyToManyField(core_models.Employee,related_name="moderating_projects")
     name = models.CharField(max_length=100)
 
+    def __str__(self):
+        return f'{self.name} ( {self.creator.user.first_name} {self.creator.user.last_name} )'
+
 class Task(models.Model):
     project = models.ForeignKey(Project , models.CASCADE , related_name="tasks")
     employee = models.ForeignKey(core_models.Employee, models.CASCADE, related_name="tasks")
